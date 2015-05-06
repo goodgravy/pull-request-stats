@@ -3,7 +3,7 @@ MAINTAINER James Brady <james@teespring.com>
 
 WORKDIR /tmp
 COPY Gemfile Gemfile
-#COPY Gemfile.lock Gemfile.lock
+COPY Gemfile.lock Gemfile.lock
 RUN bundle install
 
 WORKDIR /app
