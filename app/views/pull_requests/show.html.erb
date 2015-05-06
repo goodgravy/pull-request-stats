@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id:</strong>
+  <%= @pull_request.id %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @pull_request.url %>
+</p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @pull_request.number %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @pull_request.state %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @pull_request.user %>
+</p>
+
+<p>
+  <strong>Created at:</strong>
+  <%= @pull_request.created_at %>
+</p>
+
+<p>
+  <strong>Updated at:</strong>
+  <%= @pull_request.updated_at %>
+</p>
+
+<p>
+  <strong>Closed at:</strong>
+  <%= @pull_request.closed_at %>
+</p>
+
+<p>
+  <strong>Merged at:</strong>
+  <%= @pull_request.merged_at %>
+</p>
+
+<%= link_to 'Edit', edit_pull_request_path(@pull_request) %> |
+<%= link_to 'Back', pull_requests_path %>

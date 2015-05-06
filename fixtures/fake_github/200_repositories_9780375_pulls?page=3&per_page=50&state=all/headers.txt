@@ -1,0 +1,1 @@
+fixtures/fake_github/200_repositories_9780375_pulls\?page=3\&per_page=50\&state=all/

@@ -1,0 +1,25 @@
+< Server: GitHub.com
+< Date: Tue, 05 May 2015 19:42:32 GMT
+< Content-Type: application/json; charset=utf-8
+< Content-Length: 897068
+< Status: 200 OK
+< X-RateLimit-Limit: 5000
+< X-RateLimit-Remaining: 4985
+< X-RateLimit-Reset: 1430858315
+< Cache-Control: private, max-age=60, s-maxage=60
+< ETag: "c74506f795a7d7463cc9b6daa1b54258"
+< X-OAuth-Scopes: repo, user
+< X-Accepted-OAuth-Scopes:
+< Vary: Accept, Authorization, Cookie, X-GitHub-OTP
+< X-GitHub-Media-Type: github.v3
+< Link: <https://api.github.com/repositories/9780375/pulls?per_page=50&state=all&page=3>; rel="next", <https://api.github.com/repositories/9780375/pulls?per_page=50&state=all&page=110>; rel="last", <https://api.github.com/repositories/9780375/pulls?per_page=50&state=all&page=1>; rel="first", <https://api.github.com/repositories/9780375/pulls?per_page=50&state=all&page=1>; rel="prev"
+< X-XSS-Protection: 1; mode=block
+< X-Frame-Options: deny
+< Content-Security-Policy: default-src 'none'
+< Access-Control-Allow-Credentials: true
+< Access-Control-Expose-Headers: ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+< Access-Control-Allow-Origin: *
+< X-GitHub-Request-Id: 1FDD5E8B:0C08:B4A28B5:55491D28
+< Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+< X-Content-Type-Options: nosniff
+< X-Served-By: a6882e5cd2513376cb9481dbcd83f3a2

@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Pull Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Url</th>
+      <th>Number</th>
+      <th>State</th>
+      <th>User</th>
+      <th>Created at</th>
+      <th>Updated at</th>
+      <th>Closed at</th>
+      <th>Merged at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pull_requests.each do |pull_request| %>
+      <tr>
+        <td><%= pull_request.id %></td>
+        <td><%= pull_request.url %></td>
+        <td><%= pull_request.number %></td>
+        <td><%= pull_request.state %></td>
+        <td><%= pull_request.user %></td>
+        <td><%= pull_request.created_at %></td>
+        <td><%= pull_request.updated_at %></td>
+        <td><%= pull_request.closed_at %></td>
+        <td><%= pull_request.merged_at %></td>
+        <td><%= link_to 'Show', pull_request %></td>
+        <td><%= link_to 'Edit', edit_pull_request_path(pull_request) %></td>
+        <td><%= link_to 'Destroy', pull_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pull request', new_pull_request_path %>
