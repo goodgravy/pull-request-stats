@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe UpdatePullRequests do
-  subject(:upr) { described_class[] }
+  subject(:update_prs) { described_class[] }
 
   let!(:gh_adapter) { class_double(Github::PullRequest).as_stubbed_const }
 
@@ -13,7 +13,7 @@ describe UpdatePullRequests do
 
     it 'fetches pull requests from the beginning of time' do
       expect(gh_adapter).to receive(:since).with(DateTime.new(1970, 1, 1, 0, 0, 0))
-      upr
+      update_prs
     end
   end
 
@@ -22,51 +22,61 @@ describe UpdatePullRequests do
 
     it 'fetches pull requests since that pull request' do
       expect(gh_adapter).to receive(:since).with(pr.closed_at)
-      upr
+      update_prs
     end
 
-    context 'and a new pull request returned from GH' do
-      it 'adds the new pull request to the database' do
-        new_pr_params = {
-          id: 2,
-          url: 'http://thing.com',
-          number: 42,
-          state: 'open',
-          created_at: '2015-05-06T00:00:00Z',
-          updated_at: '2015-05-06T02:00:00Z',
-          closed_at: nil,
-          merged_at: nil,
-        }.stringify_keys
-        expect(gh_adapter).to receive(:since).and_return([new_pr_params])
+    context 'and a pull request returned from GH' do
+      before { expect(gh_adapter).to receive(:since).and_return([pr_from_gh]) }
 
-        upr
+      let(:pr_id) { 1 }
+      let(:pr_from_gh) do {
+          'id' => pr_id,
+          'url' => 'http://thing.com',
+          'number' => 42,
+          'state' => 'open',
+          'created_at' => '2015-05-06T00:00:00Z',
+          'updated_at' => '2015-05-06T02:00:00Z',
+          'closed_at' => nil,
+          'merged_at' => nil,
+          'user' => {
+            'login' => 'goodgravy',
+            'id' => 3,
+          }
+        }
+      end
 
-        new_pr_params.each do |key, expected_value|
-          expect(PullRequest.last.send(key)).to eq(expected_value)
+      context 'which is already in the database' do
+        let(:pr_id) { 1 }
+
+        it 'updates the existing pull request' do
+          update_prs
+
+          pr.reload
+          pr_from_gh.except('user').each do |key, value|
+            expect(pr.send(key)).to eq(value)
+          end
         end
       end
-    end
 
-    context 'and an updated pull request returned from GH' do
-      it 'updates the existing pull request' do
-        updated_pr_params = {
-          id: 1,
-          url: 'http://thing.com',
-          number: 42,
-          state: 'open',
-          created_at: '2015-05-06T00:00:00Z',
-          updated_at: '2015-05-06T02:00:00Z',
-          closed_at: nil,
-          merged_at: nil,
-        }.stringify_keys
+      context 'which is new' do
+        let(:pr_id) { 2 }
 
-        expect(gh_adapter).to receive(:since).and_return([updated_pr_params])
+        it 'adds the new pull request to the database' do
+          update_prs
 
-        upr
+          pr_from_gh.except('user').each do |key, value|
+            expect(PullRequest.last.send(key)).to eq(value)
+          end
+        end
+      end
 
-        pr.reload
-        updated_pr_params.each do |key, expected_value|
-          expect(pr.send(key)).to eq(expected_value)
+      context 'with a new user' do
+        it 'creates a user in the database' do
+          expect { update_prs }.to change { User.count }.by(1)
+
+          pr_from_gh['user'].each do |key, value|
+            expect(User.last.send(key)).to eq(value)
+          end
         end
       end
     end

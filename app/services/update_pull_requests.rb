@@ -5,17 +5,29 @@ class UpdatePullRequests
 
   def execute
     prs = Github::PullRequest.since(interested_in_prs_since)
-    prs.each { |pr| upsert(pr) }
+    prs.each do |pr|
+      upsert_pr(pr.except('user'))
+      upsert_user(pr['user'])
+    end
   end
 
   private
 
-  def upsert(pr_params)
-    existing_pr = PullRequest.find?(pr_params['id'])
-    if existing_pr
-      existing_pr.update(pr_params.except('id'))
+  def upsert_pr(params)
+    upsert(PullRequest, params)
+  end
+
+  def upsert_user(params)
+    upsert(User, params)
+  end
+
+  def upsert(klass, params)
+    existing_obj = klass.find?(params['id'])
+
+    if existing_obj
+      existing_obj.update(params.except('id'))
     else
-      PullRequest.create(pr_params)
+      klass.create(params)
     end
   end
 
