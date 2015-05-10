@@ -5,6 +5,7 @@ module Api
     end
 
     def show
+      @user = User.first
     end
   end
 end

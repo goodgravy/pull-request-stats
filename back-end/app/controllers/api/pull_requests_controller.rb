@@ -1,7 +1,7 @@
 module Api
   class PullRequestsController < ApiController
     def index
-      render json: PullRequest.all
+      @pull_requests = PullRequest.all
     end
   end
 end

@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
-  namespace :api, constraints: { format: 'json' } do
+  namespace :api do
     scope '1.0.0' do
-      resources :users, only: %i(index show)
-      resources :pull_requests, only: %i(index)
+      get 'sync', to: 'github#sync'
+
+      resources :users, only: [:index, :show]
+      resources :pull_requests, only: [:index]
     end
   end
 end
