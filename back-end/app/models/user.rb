@@ -4,4 +4,6 @@ class User
 
   field :id, :type => Integer, :primary_key => true
   field :login, :type => String
+
+  has_many :pull_requests
 end

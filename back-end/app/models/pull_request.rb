@@ -10,5 +10,6 @@ class PullRequest
   field :updated_at, :type => Time, :index => true
   field :closed_at, :type => Time, :index => true
   field :merged_at, :type => Time, :index => true
+
   belongs_to :user
 end

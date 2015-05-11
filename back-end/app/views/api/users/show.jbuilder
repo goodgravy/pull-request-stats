@@ -1,3 +1,4 @@
 json.data do
-  json.type 'user'
+  json.partial! 'api/users/primary', user: @user
 end
+
