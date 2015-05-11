@@ -23,8 +23,6 @@ class ErrorToHttpStatus
     case error.class.to_s
     when 'NoBrainer::Error::DocumentNotFound'
       404
-    else
-      500
     end
   end
 end
