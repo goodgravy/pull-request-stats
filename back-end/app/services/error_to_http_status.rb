@@ -8,11 +8,9 @@ class ErrorToHttpStatus
   end
 
   def execute
-    result = if error.inspect =~ /NoBrainer/
-               no_brainer
-             end
-
-    result || 500
+    if error.inspect =~ /NoBrainer/
+      no_brainer
+    end || 500
   end
 
   private
